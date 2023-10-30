@@ -1,0 +1,407 @@
+1. Static method purpose in java 8 interface.
+2. How you send response in rest endpoint.
+3. @ResponseStatus
+4. How do you handle spring boot exceptions.
+5. How many way for microservices communications. (Said kafka and RestExchange. He asked others too)
+6. How CRUD operation is performed.
+7. How to create a object with lombok builder.
+8. Different ways of dependency injection.
+9. How do you validate input DTO object using spring.
+10. Difference between @Controller and @RestController.
+	=> @Controller means just a web controller.
+	If you are using @Controller, you are bound to use @ResponseBody for the endpoint methods for it to successfully return the data back to caller.
+	@RestController comes handy with @ResponseBody. Here you no need to use this. The spring will by default use that.
+	=> @Controller is specialized version of @Component and @RestController is specialized version of @Controller.
+11. Difference between @RequestMapping and @GetMapping.
+12. PathVariable vs PathParams
+
+Note:
+Complete Example of Controller class.
+https://www.javaguides.net/2018/11/spring-getmapping-postmapping-putmapping-deletemapping-patchmapping.html#:~:text=The%20GET%20HTTP%20request%20is,GET).
+
+-------------------------------------------------------------------------------
+
+Birlasoft Interview Questions
+-----------------------------
+1. How do we secure web services.
+2. How to validate incoming DTO in rest web services.
+3. How we deploy on AWS.
+4. @ControllerAdvice annotation
+@. @Async annotation in Spring.
+
+2nd Round
+
+1. How do you set up dynamic config properties in spring boot.
+	Means what do you do if you want your application to dynamically pick the configuration without restart?
+2. Effectively final in java 8.
+    The method variables outside the streams in java become final (cant be changed) inside the stream.
+3. You have a Singleton bean and you have a prototype dependency bean inside that.
+	You want to initialize the dependent bean all the time, what would you do?
+	Answer below (use of @Lookup annotation)
+4. What does Feign client do? Why we use it?
+    Feign client is used to mock the rest call via an interface. Its being developed by Netflix Spring Cloud.
+5. List of string is there, we need to create a map of string and its length from that list using java 8.
+	Ans: list.stream().collect(Collectors.toMap(e->e, String::length));
+
+-------------------------------------------------------------------------------
+
+JPMC Another Interview 
+-----------------------------
+
+1. Type Erasure in Generics
+2. Difference between Type and Wildcard in Generics
+3. Try with resource and catch. Will catch block will have the resource?
+4. How you enable basic authentication in spring?
+5. How you do versioning your web service?
+6. Explain Template and Adapter Design patterns.
+7. Have you ever worked on Spring Integration?
+8. Explain Spy in Mockito.
+9. If you create any object with @Bean and @Component, Will there be 2 separate objects created?
+10. What is difference between Controller and RestController?
+11. Difference between War and Jar?
+12. How to use @ResponseBody Annotation?
+
+-------------------------------------------------------------------------------
+Nomura 2nd Round Interview
+---------------------------
+-> Server Clustering
+-> Transaction Isolation Level
+-> Default Stack Memory
+-> Java Memory Model
+-> You have many to many tables Student, Subject
+	name, subject
+	S1, Maths
+	S2, Maths
+	S2, History
+	S1, Science
+
+Write a query which will fetch student who have Maths but not Science.
+
+Output:
+S2 (S2 has Maths only but not science.)
+
+-------------------------------------------------------------------------------
+
+HereMaps Round 1 Interview Questions
+-------------------------------------
+
+Whats provider dependency in gradle?
+What are fat jar?
+	Jars with all dependencies wrapped along with compiled code.
+use case of proxy design pattern?
+	@Transaction in Spring.
+Have you ever done memory tuning? How can you increase/decrease java memory?
+    => 5 types of memories.
+        a. Heap Memory
+        b. Stack Memory
+        c. Method are
+        4. Native Method Stack
+        5. PC register
+    => Out of these heap memory can be configured
+        -Xmx : Max heap size. eg: -Xmx2g
+        -Xms : Initial heap size. eg. -Xms512m
+        -Xss : Stack size (default 1024K) can be set like -Xss4M
+        -XX:MaxPermSize : Max permanent generation size.
+        -XX:MaxDirectMemorySize: max direct memory
+OOPS Principle? Encapsulation? (done)
+What are the benefits of Wrapper classes?
+	Wrapper classes can only be used with Collections.
+	You can use many utilities from java.lang package with wrapper objects.
+
+
+HereMaps Round 2 interview Questions
+-------------------------------------
+
+Encapsulation vs Abstraction:
+	Abstraction can be achieved using abstract classes. The abstract methods in abstract class signifies idea instead
+	of implementation. Like for example phone's feature.
+	A phone can call() or takePhoto(). Be it an iphone or Samsung phone.
+	You don't need how they implement the call() or takePhoto() feature.
+	So an abstract class called Phone can be made with 2 abstract methods like call() and takePhoto().
+	These methods can then be implemented by concrete classes like in IPhone and Samsung.
+
+Exception Hierarchy
+											  Throwable
+	Exception 														Error
+	RuntimeException IOException InterruptedException
+Rehashing in HashMap:
+	Happens as per the load factor.
+	Initial size 16 (2^4) when it increases its size becomes (2^5) i.e. 32.
+How you store employee objects in Sorted Format.
+	You need to use TreeSet.
+	For a custom object storage you would need a comparator or comparable for sorting purpose.
+
+How you create a custom exception
+	By extending either Exception class (checked exception) or extending RuntimeException class (unchecked exception).
+
+EY interview Questions
+----------------------
+
+How you disable autowiring?
+	Simply don't use @EnableAutoWiring with @SpringBootApplication annotation. This will disable the feature only.
+	If you want some specific autowiring disable, you can use exclude flag in @SpringBootApplication.
+	@SpringBootApplication(exclude = { MongoAutoConfiguration.class })
+
+Can we use hashcode, equals in java 9 Interfaces?
+	Java has a rule: If a class implements a method, it always wins over default implementation.
+	Means By default any class in java is a subclass of Object and can provide its own implementation by default.
+	Therefore, default implementation in the interface is useless.
+
+What is the use of @FunctionalInterface?
+	It raises error if you create multiple abstract methods.
+
+Jp morgan Interview Questions
+------------------------------
+
+Q. Resolving circular dependency
+
+	Use @Lazy annotation with any of the dependencies at the time of Autowiring.
+	Spring will inject a proxy first. When needed later, it will create actual bean and inject.
+
+Max size of topic data in kafka
+
+	Default size is 1MB per message in topic
+
+Q. @lookup annotation
+	OR
+Outer Singleton and inner Prototype bean. How will it work?
+
+	Injecting prototype in singleton bean will create only one instance of prototype bean and inject it in singleton one.
+	Now If we want a new prototype to be injected in singleton bean every time we use singleton then there are 2 ways.
+	1. use applicationcontext.
+
+		@Autowired
+		ApplicationContext applicationcontext;
+
+		@GetMapping("/someurl")
+		public String method() {
+			return applicationcontext.getBean("dependencyBeanName", DependencyBeanName.class).dependencyBeanNameClassMethod();
+		}
+
+		In the above code we are manually asking application context to create a dependency bean and using its method.
+		This is not the right approach/practice to create a prototype bean.
+
+	2. Use of @Lookup method.
+
+		@GetMapping("/someurl")
+		public String method() {
+			getDependencyBeanObjectMethod.dependencyBeanNameClassMethod();
+		}
+
+		@Lookup
+		public DependencyBeanName getDependencyBeanObjectMethod() {
+			return null;
+		}
+
+		If you see the getDependencyBeanObjectMethod is returning null but being annotated with @Lookup annotation.
+		Spring will internally use cg lib to override the method and provide you the new object every time you call
+		the get endpoint method.
+
+what is ObjectFactory in spring?
+	Ans: Its an interface defined whose role is to give you an instance of a class in Runtime.
+
+Priority in @Primary and @Qualifier annotations
+	Ans: @Qualifier has the higher priority.
+
+
+Emirates Un-Answered Questions
+-------------------------------
+
+1. @ControllerAdvice Annotation
+
+	Suppose below handler you have written inside a controller class say, UserController.
+
+	@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+	@ExceptionHandler(value = NumberFormatException.class)
+	public String handleNFException(Model m) {
+		m.addAttribute("msg", "NF Exception occured.");
+		return "null page";
+	}
+
+	If you find the NumberFormatException inside UserController, then only this will be called.
+	If you want to define this on project level, means where ever you get NumberFormatException this
+	method should execute, you need to create a generic exception handler class.
+	This class should be annotated with @ControllerAdvice annotation. This will let spring
+	decide this is generic class written for exception handling purpose.
+
+	@ControllerAdvice
+	public class GenericExceptionHandlerClass {
+		...
+	}
+
+2. Bean Life Cycle
+
+	Spring provides 2 methods to every bean objects in their life.
+	a. public void init() {//initialization code happens after constructor.}
+	b. public void destroy() {//cleanup code}
+
+	Annotation based life cycle hook methods.
+
+	@PostConstruct, @PreDestroy
+
+	Note: in case of enabling above spring annotations you need to add an extra tag in spring config xml. <context:annotation-config />
+
+3. Thread Local: This object is used to store thread specific data meant for an individual thread.
+
+	ThreadLocal tlObj = new ThreadLocal();
+	tlObj.set(data);
+	tlObj.remove();
+
+4. Reading large files in java.
+
+	You can use java nio package to read a large file in java. This will read the file content line by line.
+
+5. Reading, Processing and Writing 1TB file to the database.
+
+	The large file, around 1 TB in size can be processed using Spring Batch/in memory read.
+	But, using spring batch is not the appropriate way. We need to use something else which is suitable for this scenario.
+	We can use the combination of Apache kafka and spark.
+	You create an executor framework, where each thread can read the file publishes the content to kafka topics.
+	Spark engine acts as a consumer which can consume the data in parallel from the topic, processes them and perform DB writes.
+
+6. Cascading in Hibernate
+
+	Suppose we have one to many relationship between Question and Answers.
+	If you initialize question and set all the answers of that object. Now, if you do
+
+		tx.save(questionObj);
+
+	This will just persist question in question table in database.
+	The answers will not be saved in answer table.
+	You have to explicitly save all the answers like below.
+
+		tx.save(ans1);
+		tx.save(ans2);
+		tx.save(ans3);
+
+	OR ELSE you can use hibernate cascading as well.
+
+	When you define OnetoMany relationship in Question class you can specify cascading.
+
+		@OnetoMany(mappedBy="question", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+		private List<Answer> answers;
+
+	CascadeType.ALL ensures all of the changes will be cascaded. If you delete question answers too will be deleted.
+	If you add questions answers too will be added (provided the list of answers in question have to be set and not empty).
+
+7. Validating of java beans on server side.
+
+    -> Done by jsr 380 criteria.
+    -> This criteria defines various annotations.
+    -> The implementation we use for this criteria is also known as Hibernate Validator.
+    -> @NotNull, @Email, @Size, @Min, @Max, @NotEmpty...
+    -> Example:
+        > @Size(min=4, message="The value must be minimum of 4 characters")
+        > @Pattern(regex="some regex")
+    -> We need to use spring-boot-starter-validation dependency.
+    -> We should use the annotations above properties in bean class.
+    -> We must enable the same from the controller class like below.
+        > use @Valid annotation just before @RequestBody annotation.
+        > @PostMappig
+          public ResponseEntity<UserDto> updateUser(@Valid @RequestBody UserDto user) {}
+    -> And, That's it!
+    -> How we can let caller (client) know about the validation failures.
+        > The above validation failures generates MethodArgumentNotValidException
+        > We can handle the above Exception in GlobalExceptionHandler class with @ExceptionHandler class.
+        > This will send the data to exception object passed to the handler method.
+        > You can traverse and add them to response object and sent them to client in response.
+
+8. Difference in Put vs Post vs Patch.
+
+NSE Full stack development interview questions
+----------------------------------------------
+
+1. @Attainable annotation
+2. Listening to multiple topics in Kafka
+3. Listening to multiple consumer groups
+4. Completable future termination
+5. Precautions to take for deadlock prevention
+
+Command Query Responsibility Segregation
+
+-> SAGA
+    > This is the design principal used in microservice based projects.
+    > There are 2 varieties of this.
+        : Orchestration => Only one service calling multiple service one after other in a
+        predefined flow. Example Order Service calls 1st Payment service, 2nd Inventory service
+        and lastly Delivery service.
+        : Choreography => Here services are interacting with each other via an event. One service
+        is not bothered about calling another service post it finishes its job. It just publishes
+        an event of its state and whoever has subscribed to that event will resume its part after
+        consuming the same.
+        Example Order service will emit order created event and then Payment
+        service will resume its part. There can be 2 events with payment one.
+        a. Payment successful event: Will be picked by Inventory update service
+        b. Payment failure event: Will be picked by Failure service.
+    > And, so on.
+
+Virtusa | Emirates NB interview questions
+-----------------------------------------
+
+1. Observer DP
+2. Strategy DP
+3. Traversing the Hashmap in functional way
+4. How you implement an in memory cache in java
+5. Logging and tracing
+6. How you will implement Open Closed principle
+7. Have you ever used custom annotation in spring
+8. Difference between RestTemplate and WebClient
+9. How you handle exception in spring
+10. How you write basic consumer and producer in Kafka.
+11. Rolling back the transaction in distributed service. => Ans is 2PC
+12. How you implement circuit breakers in microservices?
+
+Note: To know more about this you can search in your email for a mail from Mohan Veerbhadra.
+
+ValueLabs Emirates NBD interview questions
+------------------------------------------
+
+1. Peek method (used for debug in streams based methods, Its execution depends upon immediate next processing methods)
+2. Project Architecture
+3. Finding first unique character from the String.
+
+Altres Technology Interview Questions
+-------------------------------------
+What is a loose coupling?
+
+SmartStreams Technology
+-----------------------
+
+1. Design time bound rate limiter on service side
+   Say in 2 mins you don't want more than 1000 requests to hit. If 1001st request comes you need to send too many requests response.
+2. How you check your application is performing slow.
+    OR
+3. How you check memory issues of your application.
+    Profiling: Checks performance of the application like method call time, resource usage by the system and memory usage.
+    Example: Java VisualVM, JProfiler.
+    Logging and Tracing.
+    Load Testing/Stress testing: Apache JMeter can be used, This sends huge amount of requests to service and you can get to measure
+    the system performance by various metrics.
+    Memory profiling: You can take heap dump to see memory related issues. Example: Java Mission Control.
+4. How many types of memory your applications uses and how you change them?
+    Answer is above
+5. How you decide threads for your executor service.
+    Many deciding factors to check.
+        a. Task characteristics: if the task is i/o bound or cpu bound.
+            > For i/o operation increasing threads beyond no. of processes available is good idea
+            > if your task is cpu bound (means complex computation is required) then, increasing thread numbers is not a good idea
+            as this might lead to performance overhead.
+        b. Resource availability: check system resource, memory present.
+        c. Experimentation/tuning: checking the performance of the system using multiple threads config in the application and
+            picking the best/optimal number.
+
+ADCB Bank Interview Questions
+-----------------------------
+
+1. Kubernates, containerization using docker.
+2. How load balancer works
+3. If You have db which is continuously being updated (added new rows).
+	You have new threads being spawned every minute. You need to ensure if a thread
+	is initializing, it has to read the new records. like first thread read 500,
+	the next one to read next 500. How can you achieve this?
+4. Optimistic vs Passimistic reads in JPA
+5. You have to read from DB when your application starts up (all the time).
+	How can you do that?
+6. If you are calling a server which is giving error. How you are handling in your client (caller)
+	application?
+7. ServiceDiscovery using Eureka Naming Server.
